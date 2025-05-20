@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <meta charset="UTF-8">
+    <head>
+        <link rel = "stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
+        <title>SGEA - V 1.0</title>
+        <h1 class="title_format">SGEA-Sistema Gerenciador de Escritório de Arquitetura - V 1.0</h1>
+        <h2 class="subtitle_mantem_format">Alteração de Senhas</h2>
+    </head>
+    <Form action="/alter_senha" method="POST">
+        <div1>
+        <label class="label_usuativo">Usuário ativo:</label>
+        <input type="text" id="usuario_ativo" name="usuario_ativo" maxlength="68" readonly class="input_usuativo"  value = "{{ cod_usu_ativo + ' - ' + nome_usu_ativo }}" />
+        </div1>
+        <br>
+        <br>
+        <label class="label_usuarios" >Código:</label>
+        <input type="text" id="cod_usuario" name="cod_usuario" maxlength="5" value = "{{ cod_usuario }}" placeholder="ID do usuário - números" class="input_usuarios" autofocus tabindex = 0 pattern="[0-9]+$" />
+        <br>
+        <label class="label_usuarios" >Senha Atual:</label>
+        <input type="text" id="senha_usuario_atual" name="senha_usuario_atual" maxlength="50" value = "{{ psw_atual }}" class="input_usuarios" autofocus tabindex = 1 />
+        <br>
+        <label class="label_usuarios" >Senha Nova:</label>
+        <input type="text" id="senha_usuario_nova" name="senha_usuario_nova" maxlength="50" value = "{{ psw_novo }}" class="input_usuarios" autofocus tabindex = 2 />
+        <br>
+        <br>
+        <input type="submit" name="bt_altera_senha" value="Limpar" class="btn_manutencao" tabindex = 3>
+        <input type="submit" name="bt_altera_senha" value="Alterar" class="btn_manutencao" tabindex = 4>
+        <input type="submit" name="bt_altera_senha" value="Sair" class="btn_manutencao" tabindex = 5>
+        <br>
+        <br>
+        {% if mens is not none %}
+        <h6>{{ mens }}</h6>
+        {% else %}
+        <h6>{{ "" }}</h6>
+        {% endif %}
+    </Form>
+    {% set mensagens = get_flashed_messages() %}
+    {% if mensagens %}
+        <div id="Atenção!" style="color:red">
+            {% for msg in mensagens %}
+                {{ msg }}
+            {% endfor %}
+        </div>
+    {% endif %}
+</body>
+</html>

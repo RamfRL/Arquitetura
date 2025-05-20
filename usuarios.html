@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <meta charset="UTF-8">
+    <head>
+        <link rel = "stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
+        <title>SGEA - V 1.0</title>
+        <h1 class="title_format">SGEA-Sistema Gerenciador de Escritório de Arquitetura - V 1.0</h1>
+        <h2 class="subtitle_mantem_format">MANUTENÇÃO DE USUÁRIOS</h2>
+    </head>
+    <!-- FORMATAÇÃO DOS CAMPOS DE ENTRADA -->
+    <script>
+      function formatar(mascara, documento) {
+        let i = documento.value.length;
+        let saida = '#';
+        let texto = mascara.substring(i);
+        while (texto.substring(0, 1) != saida && texto.length ) {
+          documento.value += texto.substring(0, 1);
+          i++;
+          texto = mascara.substring(i);
+        }
+      }
+    </script>
+    <script>
+        <!-- FUNÇÃO DE ALERTA - AO APERTAR O BOTÃO EXCLUIR - PERGUNTA -->
+        function excluiregistro() {
+            let text;
+            if (confirm("Atenção! O usuário será excluído! Confirma a exclusão?") == true) {
+                text = "Sim";
+            } else {
+                text = "Não";
+            }
+            mensagem_excluir.value=text;
+        }
+    </script>
+    <Form action="/mantem_usuarios" method="POST">
+        <div>
+            <label class="label_usuativo">Usuário ativo:</label>
+            <input type="text" id="usuario_ativo" name="usuario_ativo" maxlength="68" readonly class="input_usuativo"  value= "{{ cod_usu_ativo + ' - ' + nome_usu_ativo }}" />
+        </div>
+        <br>
+        <!-- DIV DOS CAMPOS DE ENTRADA -->
+        <div id="campos" class="div_campos_usuarios">
+            <label class="label_usuarios" >Código:</label>
+            <input type="text" id="cod_usuario" name="cod_usuario" maxlength="5" value= "{{ cod_usuario }}" placeholder="ID do usuário - números" class="input_usuarios" autofocus tabindex = 0 pattern="[0-9]+$" />
+            <label class="label_usuarios" >Nome:</label>
+            <input type="text" id="nome_usuario" name="nome_usuario" maxlength="80" value= "{{ nome_usuario }}" class="input_usuarios" tabindex = 1 />
+            <label class="label_usuarios" >Tipo:</label>
+            <select id="tipo_pessoa" name="tipo_pessoa" class="select_pessoa" autofocus tabindex = 6>
+            {% for value in lista_tipopessoa %}
+                {% if default_pessoa=="PF" %}
+                    <option value="{{ value[0:2] }}" {% if value[0:2]==default_pessoa %} selected {% endif %}>{{value[0:30]}} </option>
+                {% else %}
+                    <option value="{{ value[0:2] }}" {% if value[0:2]==tipo_usuario %} selected {% endif %}>{{value[0:30]}} </option>
+                {% endif %}
+            {% endfor %}
+            </select>
+            <!-- <input type="text" id="tipo_usuario" name="tipo_usuario" maxlength="02" value= "{{ tipo_usuario }}" class="input_pessoa" readonly autofocus tabindex = 10 /> -->
+            <label class="label_dtnasc_usuario" >Nascimento: </label>
+            <input type="text" id="dtnasc_usuario" name="dtnasc_usuario" maxlength="10" value= "{{ data_nasc_usu }}" class="input_usuarios" OnKeyPress="formatar('##/##/####',this)" autofocus tabindex = 2  />
+            <br>
+            <label class="label_usuarios" >CPF: </label>
+            <!-- <input type="text" id="cpf_usuario" name="cpf_usuario" maxlength="14" value = "{{ cpf_usuario }}" class="input_usuarios" OnKeyPress="formatar('###.###.###-##',this)" readonly tabindex = 2  /> -->
+            <input type="text" id="cpf_usuario" name="cpf_usuario" maxlength="14" value= "{{ cpf_usuario }}" class="input_usuarios" OnKeyPress="formatar('###.###.###-##',this)" {% if tipo_usuario=="PJ" %} readonly {% else %} readonly:false; {% endif %} tabindex = 3  />
+            <label class="label_usuarios" >CNPJ: </label>
+            <input type="text" id="cnpj_usuario" name="cnpj_usuario" maxlength="19" value= "{{ cnpj_usuario }}" class="input_usuarios" OnKeyPress="formatar('###.###.###/####-##',this)" {% if tipo_usuario=="PF" %} readonly {% else %} readonly:false; {% endif %} autofocus tabindex = 4  />
+            <br>
+            <label class="label_usuarios" >Fone:</label>
+            <input type="text" id="fone_usuario" name="fone_usuario" maxlength="15" value= "{{ fone_usuario }}" class="input_usuarios" OnKeyPress="formatar('(##) #####-####',this)" autofocus tabindex = 5 />
+            <label class="label_usuarios" >Email:</label>
+            <input type="text" id="email_usuario" name="email_usuario" maxlength="50" value= "{{ email_usuario }}" class="input_usuarios" autofocus tabindex = 6 />
+            <br>
+            <label class="label_usuarios" >Cargo:</label>
+            <input type="text" id="cargo_usuario" name="cargo_usuario" maxlength="50" value= "{{ cargo_usuario }}" class="input_usuarios" autofocus tabindex = 7 />
+            <label class="label_usuarios" >Autoridade:</label>
+            <input type="text" id="autoridade_usuario" name="autoridade_usuario" maxlength="2" value= "{{ autoridade_usuario }}" class="input_usuarios" autofocus tabindex = 8 pattern="[0-9]+$"/>
+            <br>
+            <label class="label_usuarios" >Senha:</label>
+            <input type="text" id="senha_usuario" name="senha_usuario" maxlength="50" value= "{{ psw_usuario }}" class="input_usuarios" autofocus tabindex = 9 />
+            <label class="label_usuarios" >Último acesso:</label>
+            <input type="text" id="ult_acesso_usuario" name="ult_acesso_usuario" maxlength="20" value= "{{ ult_acesso_usuario }}" class="input_usuarios" autofocus tabindex = 10 readonly />
+            <br>
+            <!-- INPUT OCULTO PARA MENSAGEM DE EXCLUIR -->
+            <input type="text" id="mensagem_excluir" name="mensagem_excluir" hidden value = "{{ mensagem }} "/>
+            <br>
+            <input type="submit" name="bt_busca_usuario" value="Limpar" class="btn_manutencao" tabindex = 11>
+            <input type="submit" name="bt_busca_usuario" value="Localizar" class="btn_manutencao" tabindex = 12>
+            <input type="submit" name="bt_busca_usuario" value="Incluir" class="btn_manutencao" tabindex = 13>
+            <input type="submit" name="bt_busca_usuario" value="Alterar" class="btn_manutencao" tabindex = 14>
+            <input type="submit" name="bt_busca_usuario" value="Excluir" onclick="excluiregistro()" class="btn_manutencao" tabindex = 15>
+            <input type="submit" name="bt_busca_usuario" value="Sair" class="btn_manutencao" tabindex = 16>
+            {% set mensagens = get_flashed_messages() %}
+            {% if mensagens %}
+                {% for msg in mensagens %}
+                    <p class="mensagem_alerta">{{ msg }}</p>
+                {% endfor %}
+            {% else %}
+                {% if mens is not none %}
+                    <p>{{ mens }}</p>
+                {% else %}
+                    <p>{{ "" }}</p>
+                {% endif %}
+            {% endif %}
+        </div>
+    </Form>
+    <!-- DIV DA TABELA DOS DADOS -->
+    <div>
+        <p class="titulo_table" >RELAÇÃO DE USUÁRIOS CADASTRADOS</p>
+    </div>
+    <div class="div_tabela">
+        <table border = 1 class="formato_table">
+             <thead class="titulo_table">
+                <td>Selecione</td>
+                <td>ID</td>
+                <td>NOME</td>
+                <td>NASC</td>
+                <td>TIPO</td>
+                <td>CPF</td>
+                <td>CNPJ</td>
+                <td>FONE</td>
+                <td>EMAIL</td>
+                <td>CARGO</td>
+                <td>AUTORIDADE</td>
+                <td>SENHA</td>
+                <td>ÚLTIMO ACESSO</td>
+             </thead>
+             {% for row in dados_usuarios %}
+                <tr>
+                    <!-- COLOCAMOS ESTA LINHA ABAIXO PARA TESTAR UM BOTÃO -->
+                   <td>
+                   <a href="{{ url_for('edita_usuario', record_id=row['id_usuario'], cod_usu_ativo = cod_usu_ativo, nome_usu_ativo = nome_usu_ativo) }}"><input type="submit" name="editar_usuario" value="Ok" class="btn_sel_table"/></a>
+                   </td>
+                   <td>{{ row["id_usuario"] }}</td>
+                   <td>{{ row["nome_usuario"] }}</td>
+                   <td>{{ row["data_nasc_usuario"] }}</td>
+                   <td>{{ row["tipo_usuario"] }}</td>
+                   <td>{{ row["cpf_usuario"] }}</td>
+                   <td>{{ row["cnpj_usuario"] }}</td>
+                   <td>{{ row['fone_usuario'] }}</td>
+                   <td>{{ row['email_usuario'] }}</td>
+                   <td>{{ row['cargo_usuario'] }}</td>
+                   <td>{{ row['autoridade_usuario'] }}</td>
+                   <td>{{ row['senha_usuario'] }}</td>
+                   <td>{{ row['ultimo_acesso'] }}</td>
+                </tr>
+             {% endfor %}
+      </table>
+    </div>
+</body>
+</html>

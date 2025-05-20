@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <meta charset="UTF-8">
+    <head>
+        <link rel = "stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
+            <title>SGEA - V 1.0</title>
+            <h1 class="title_format">SGEA-Sistema Gerenciador de Escritório de Arquitetura - V 1.0</h1>
+        <br>
+    </head>
+    <Form action="/menu_principal" method="POST">
+        <div1 >
+            <label class="label_usuativo">Usuário ativo:</label>
+            <input type="text" id="usuario_ativo" name="usuario_ativo" maxlength="68" readonly class="input_usuativo"  value = "{{ cod_usu_ativo + ' - ' + nome_usu_ativo }}" />
+        </div1>
+        <br><br>
+        <label for="opcao" class="label_opcoes" >Selecione a Opção de trabalho e confirme no botão Ok: </label>
+        <select name="opcoes" id="opcoes    " size="1" class="select_opcoes">
+        <optgroup label="USUÁRIO">
+        <option value="manutencao_usuarios">Manutenção de Usuários</option>
+        <option value="alteracao_senha">Alteração de senhas</option>
+        <optgroup label="CADASTRO GERAL">
+        <option value="clientes">Clientes</option>
+        <option value="lojas">Lojas</option>
+        <option value="prestador">Prestador de Serviços</option>
+        <option value="atividade">Atividades</option>
+        <option value="tipo_cliente">Tipo Cliente</option>
+        <option value="tipo_projeto">Tipos de Projetos</option>
+        <option value="tipo_despesa">Tipos de Despesas</option>
+        <option value="tipo_situacao">Tipos de Situação</option>
+        <optgroup label="PROJETOS">
+        <option value="cadastro_projeto">Cadastro de Projetos</option>
+        <option value="tarefas_projeto">Tarefas de Projetos</option>
+        <option value="acompanhamento_projeto">Acompanhamento de Projetos</option>
+        <option value="sair">Sair</option>
+        </optgroup>
+        </select>
+        <input type="submit" name="bt_opcoes" value="Ok" class="btn_principal">
+        <br>
+        <br>
+        <br>
+        {% set mensagens = get_flashed_messages() %}
+        {% if mensagens %}
+            {% for msg in mensagens %}
+                <p class="mensagem_alerta">{{ msg }}</p>
+            {% endfor %}
+        {% else %}
+            {% if mens is not none %}
+                <p>{{ mens }}</p>
+            {% else %}
+                <p>{{ "" }}</p>
+            {% endif %}
+        {% endif %}
+    </Form>
+</body>
+</html>

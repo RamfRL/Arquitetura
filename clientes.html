@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<body>
+    <meta charset="UTF-8">
+    <head>
+        <link rel = "stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
+        <title>SGEA - V 1.0</title>
+        <h1 class="title_format">SGEA-Sistema Gerenciador de Escritório de Arquitetura - V 1.0</h1>
+        <h2 class="subtitle_mantem_format">CADASTRO DE CLIENTES</h2>
+    </head>
+    <!-- FORMATAÇÃO DOS CAMPOS DE ENTRADA -->
+    <script>
+      function formatar(mascara, documento) {
+        let i = documento.value.length;
+        let saida = '#';
+        let texto = mascara.substring(i);
+        while (texto.substring(0, 1) != saida && texto.length ) {
+          documento.value += texto.substring(0, 1);
+          i++;
+          texto = mascara.substring(i);
+        }
+      }
+    </script>
+    <!-- FUNÇÃO DE ALERTA - SOBRE O BOTÃO EXCEL/TXT -->
+    <script>
+       function mensagem() {
+         alert("Atenção! Serão gerados um arquivo TXT e um arquivo XLSX com todos os clientes ou somente do cliente selecionado na pasta static/arquivos_txt e static/arquivos_xlsx.");
+       }
+    </script>
+    <script>
+        <!-- FUNÇÃO DE ALERTA - AO APERTAR O BOTÃO EXCLUIR - PERGUNTA -->
+        function excluiregistro() {
+            let text;
+            if (confirm("Atenção! O cliente será excluído! Confirma a exclusão?") == true) {
+                text = "Sim";
+            } else {
+                text = "Não";
+            }
+            mensagem_excluir.value=text;
+        }
+    </script>
+    <Form action="/mantem_clientes" method="POST">
+        <div>
+            <label class="label_usuativo">Usuário ativo:</label>
+            <input type="text" id="usuario_ativo" name="usuario_ativo" maxlength="68" readonly class="input_usuativo"  value = "{{ cod_usu_ativo + ' - ' + nome_usu_ativo }}" />
+        </div>
+        <br>
+        <!-- DIV DOS CAMPOS DE ENTRADA -->
+        <div id="campos" class="div_campos_clientes">
+            <label class="label_clientes" >Código:</label>
+            <input type="text" id="cod_cliente" name="cod_cliente" maxlength="5" value = "{{ cod_cliente }}" placeholder="ID da cliente - números" class="input_clientes" autofocus tabindex = 0 pattern="[0-9]+$" />
+            <label class="label_clientes" >Nome:</label>
+            <input type="text" id="nome_cliente" name="nome_cliente" maxlength="80" value = "{{ nome_cliente }}" class="input_clientes" tabindex = 1 />]
+            <br>
+            <label class="label_clientes" >Razão Social:</label>
+            <input type="text" id="razao_cliente" name="razao_cliente" maxlength="80" value = "{{ razao_social_cliente }}" class="input_clientes" tabindex = 2 />]
+            <label class="label_clientes" >Fantasia:</label>
+            <input type="text" id="fantasia_cliente" name="fantasia_cliente" maxlength="80" value = "{{ nome_fantasia_cliente }}" class="input_clientes" tabindex = 3 />]
+            <br>
+            <label class="label_clientes" >Fone:</label>
+            <input type="text" id="fone_cliente" name="fone_cliente" maxlength="15" value = "{{ fone_cliente }}" class="input_clientes" OnKeyPress="formatar('(##) #####-####',this)" autofocus tabindex = 4 />
+            <label class="label_clientes" >Email:</label>
+            <input type="text" id="email_cliente" name="email_cliente" maxlength="50" value = "{{ email_cliente }}" class="input_clientes" autofocus tabindex = 5 />
+            <br>
+            <label class="label_clientes" >CPF: </label>
+            <input type="text" id="cpf_cliente" name="cpf_cliente" maxlength="14" value= "{{ cpf_cliente }}" class="input_clientes" OnKeyPress="formatar('###.###.###-##',this)" {% if tipo_cliente=="PJ" %} readonly {% else %} readonly:false; {% endif %} tabindex = 6  />
+            <label class="label_clientes" >CNPJ: </label>
+            <input type="text" id="cnpj_cliente" name="cnpj_cliente" maxlength="19" value = "{{ cnpj_cliente }}" class="input_clientes" OnKeyPress="formatar('###.###.###/####-##',this)" {% if tipo_cliente=="PF" %} readonly {% else %} readonly:false; {% endif %} autofocus tabindex = 7  />
+            <br>
+            <label class="label_clientes" >Atividade:</label>
+            <select id="atividade_cliente" name="atividade_cliente" class="select_atividadecliente" autofocus tabindex = 8>
+            {% for value in lista_atividadecliente %}
+                {% if default_atividade=="01" %}
+                    <option value="{{ value[0:2] }}" {% if value[0:2]==default_atividade %} selected {% endif %}>{{value[0:30]}} </option>
+                {% else %}
+                    <option value="{{ value[0:2] }}" {% if value[0:2]==atividade_cliente %} selected {% endif %}>{{value[0:30]}} </option>
+                {% endif %}
+            {% endfor %}
+            </select>
+            <label class="label_tipoclientes" >Tipo:</label>
+            <select id="tipo_cliente" name="tipo_cliente" class="select_tipocliente" autofocus tabindex = 9>
+            {% for value in lista_tipocliente %}
+                {% if default_tipocliente=="01" %}
+                    <option value="{{ value[0:2] }}" {% if value[0:2]==default_tipocliente %} selected {% endif %}>{{value[0:30]}} </option>
+                {% else %}
+                    <option value="{{ value[0:2] }}" {% if value[0:2]==tipo_cliente %} selected {% endif %}>{{value[0:30]}} </option>
+                {% endif %}
+            {% endfor %}
+            </select>
+            <br>
+            <label class="label_clientes" >Contato:</label>
+            <input type="text" id="contato_cliente" name="contato_cliente" maxlength="50" value = "{{ contato_cliente }}" class="input_clientes"  autofocus tabindex = 10  />
+            <label class="label_clientes" >Nasc.Contato:</label>
+            <input type="text" id="dtnasc_cont_cliente" name="dtnasc_cont_cliente" maxlength="10" value= "{{ data_nasc_cont_cliente }}" class="input_clientes" OnKeyPress="formatar('##/##/####',this)" autofocus tabindex = 11  />
+            <br>
+            <label class="label_clientes" >CPF Contato: </label>
+            <input type="text" id="cpf_contato_cliente" name="cpf_contato_cliente" maxlength="14" value= "{{ cpf_contato_cliente }}" class="input_clientes" OnKeyPress="formatar('###.###.###-##',this)" tabindex = 12  />
+            <!-- INPUT OCULTO PARA MENSAGEM DE EXCLUIR -->
+            <input type="text" id="mensagem_excluir" name="mensagem_excluir" hidden value = "{{ mensagem }} "/>
+            <br>
+            <label class="label_clientes" >Cidade:</label>
+            {% if default_estados=="PR" %}
+                <input type="text" id="cidade_cliente" name="cidade_cliente" maxlength="80" value = "{{ "Curitiba" }}" placeholder="Curitiba" class="input_clientes"  autofocus tabindex = 13 />
+            {% else %}
+                <input type="text" id="cidade_cliente" name="cidade_cliente" maxlength="80" value = "{{ cidade_cliente }}" placeholder="Curitiba" class="input_clientes"  autofocus tabindex = 14 />
+            {% endif %}
+            <label class="label_clientes" >UF:</label>
+            <!-- <select id="estados" name="estados" class="select_estados" value = "{{ uf_cliente }}" autofocus tabindex = 9> -->
+            <select id="estados" name="estados" class="select_estados" autofocus tabindex = 15>
+            {% for value in lista_estados %}
+                {% if default_estados=="PR" %}
+                    <option value="{{value[0:2]}}" {% if value[0:2]==default_estados %} selected {% endif %}>{{value[0:30]}}</option>
+                {% else %}
+                    <option value="{{value[0:2]}}" {% if value[0:2]==uf_cliente %} selected {% endif %}>{{value[0:30]}}</option>
+                {% endif %}
+            {% endfor %}
+            </select>
+            <br>
+            <label class="label_clientes" >Endereço:</label>
+            <input type="text" id="endereco_cliente" name="endereco_cliente" maxlength="80" value = "{{ endereco_cliente }}" class="input_clientes"  autofocus tabindex = 16 />
+            <label class="label_clientes" >CEP:</label>
+            <input type="text" id="cep_cliente" name="cep_cliente" maxlength="10" value = "{{ cep_cliente }}" class="input_clientes" OnKeyPress="formatar('##.###-###',this)" autofocus tabindex = 17 />
+            <br>
+            <label class="label_clientes" >Responsável:</label>
+            <input type="text" id="func_resp_cliente" name="func_resp_cliente" maxlength="80" value = "{{ func_resp_cliente }}" class="input_clientes" autofocus tabindex = 18 />
+            <br>
+            <br>
+            <input type="submit" name="bt_busca_cliente" value="Limpar" class="btn_manutencao" tabindex = 19>
+            <input type="submit" name="bt_busca_cliente" value="Localizar" class="btn_manutencao" tabindex = 20>
+            <input type="submit" name="bt_busca_cliente" value="Incluir" class="btn_manutencao" tabindex = 21>
+            <input type="submit" name="bt_busca_cliente" value="Alterar" class="btn_manutencao" tabindex = 22>
+            <input type="submit" name="bt_busca_cliente" value="Excluir"  onclick="excluiregistro()" class="btn_manutencao" tabindex = 23>
+            <input type="submit" name="bt_busca_cliente" value="Excel/TXT"  class="btn_manutencao" tabindex = 24>
+            <input type="submit" name="bt_busca_cliente" value="Sair" class="btn_manutencao" tabindex = 25>
+            {% set mensagens = get_flashed_messages() %}
+            {% if mensagens %}
+                {% for msg in mensagens %}
+                    <p class="mensagem_alerta">{{ msg }}</p>
+                {% endfor %}
+            {% else %}
+                {% if mens is not none %}
+                    <p>{{ mens }}</p>
+                {% else %}
+                    <p>{{ "" }}</p>
+                {% endif %}
+            {% endif %}
+        </div>
+    </Form>
+    <!-- DIV DA TABELA DOS DADOS -->
+    <div>
+        <p class="titulo_table" >RELAÇÃO DE CLIENTES CADASTRADOS</p>
+    <div/>
+    <div class="div_tabela">
+        <table border = 1 class="formato_table">
+             <thead class="titulo_table">
+                <td>Selecione</td>
+                <td>ID</td>
+                <td>NOME</td>
+                <td>RAZÃO SOCIAL</td>
+                <td>NOME FANTASIA</td>
+                <td>FONE</td>
+                <td>EMAIL</td>
+                <td>CPF</td>
+                <td>CNPJ</td>
+                <td>TIPO CLIENTE</td>
+                <td>ATIVIDADE</td>
+                <td>CONTATO</td>
+                <td>CPF CONTATO</td>
+                <td>DATA NASC.CONTATO</td>
+                <td>CIDADE</td>
+                <td>UF</td>
+                <td>ENDEREÇO</td>
+                <td>CEP</td>
+                <td>RESPONSÁVEL</td>
+             </thead>
+             {% for row in dados_clientes %}
+                <tr>
+                    <!-- COLOCAMOS ESTA LINHA ABAIXO PARA SELECIONAR UM REGISTRO AO PRESSIONAR O BOTÃO -->
+                   <td>
+                   <a href="{{ url_for('edita_cliente', record_id=row['id_cliente'], cod_usu_ativo = cod_usu_ativo, nome_usu_ativo = nome_usu_ativo) }}"><input type="submit" name="editar_cliente" value="Ok" class="btn_sel_table"/></a>
+                   </td>
+                   <td>{{ row["id_cliente"] }}</td>
+                   <td>{{ row["nome_cliente"] }}</td>
+                   <td>{{ row["razao_social_cliente"] }}</td>
+                   <td>{{ row["nome_fantasia_cliente"] }}</td>
+                   <td>{{ row["fone_cliente"] }}</td>
+                   <td>{{ row["email_cliente"] }}</td>
+                    <td>{{ row["cpf_cliente"] }}</td>
+                    <td>{{ row["cnpj_cliente"] }}</td>
+                   <td>{{ row["tipo_cliente"] }}</td>
+                   <td>{{ row["atividade_cliente"] }}</td>
+                   <td>{{ row["contato_cliente"] }}</td>
+                   <td>{{ row["cpf_contato_cliente"] }}</td>
+                   <td>{{ row["data_nasc_cont_cliente"] }}</td>
+                   <td>{{ row["cidade_cliente"] }}</td>
+                   <td>{{ row["uf_cliente"] }}</td>
+                   <td>{{ row["endereco_cliente"] }}</td>
+                   <td>{{ row["cep_cliente"] }}</td>
+                   <td>{{ row["usuario_cliente"] }}</td>
+                </tr>
+             {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

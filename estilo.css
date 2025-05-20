@@ -1,0 +1,621 @@
+/* FORMATO PARA A DIV DO FORM DE ACESSO */
+.div_acesso {
+    width: 550px;
+    padding: 15px;
+    margin: 3px;
+    background-color: lightgrey;
+    border: 1px solid black;
+}
+
+/* DIV DAS TABELAS DE USUÁRIOS, LOJAS TIPO, CLIENTES PROJETOS */
+.div_tabela {
+    overflow-y: scroll;
+    overflow-x: scroll;
+    margin: 0 auto;
+    height: 200px;
+    font-size: 12px;
+    background-color: lightgrey;
+    border: 1px solid black
+
+}
+
+/* DIV DOS CAMPOS DO FORM LOJAS */
+.div_campos_lojas  {
+    height: 200px;
+    margin: 0 px;
+    padding: 1px;
+    background-color: lightgrey;
+    border: 1px solid black
+}
+
+/* DIV DOS CAMPOS DO FORM CLIENTES */
+.div_campos_clientes  {
+    height: 290px;
+    margin: 0 px;
+    padding: 1px;
+    background-color: lightgrey;
+    border: 1px solid black
+}
+
+/* DIV DOS CAMPOS DO FORM PROJETOS */
+.div_campos_projetos  {
+    height: 480px;
+    margin: 0 px;
+    padding: 1px;
+    font-size: 14px;
+    background-color: lightgrey;
+    border: 1px solid black
+}
+
+
+/* DIV DOS CAMPOS DO FORM TAREFAS DE PROJETOS */
+.div_campos_tarefas  {
+    height: 300px;
+    width: 750px;
+    margin: 0 px;
+    padding: 1px;
+    font-size: 14px;
+    background-color: lightgrey;
+    border: 1px solid black
+}
+
+/* DIV DOS CAMPOS DO FORM USUÁRIOS */
+.div_campos_usuarios  {
+    height: 220px;
+    margin: 0 px;
+    padding: 1px;
+    background-color: lightgrey;
+    border: 1px solid black
+}
+
+/* DIV DOS CAMPOS DE ATIVIDADES E TIPOS */
+.div_campos_tipos  {
+    height: 150px;
+    margin: 0 px;
+    padding: 1px;
+    background-color: lightgrey;
+    border: 1px solid black
+
+}
+
+.div_tabela_lojas {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin: 0 auto;
+    height: 200px;
+    font-size: 14px;
+    background-color: lightgrey;
+    border: 1px solid black
+}
+
+
+/* ####################################################################################################################*/
+/* ####################################################################################################################*/
+/* TITULOS  */
+.title_format {
+    align-items: center;
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+    background-color: lightyellow;
+    border: 1px solid black;
+}
+
+.subtitle_format {
+    padding: 10px;
+    margin: 3px;
+    font-size: 30px;
+    font-weight: bold
+}
+
+.subtitle_mantem_format {
+    align-items: center;
+    text-align: center;
+    font-size: 15px;
+    background-color: lightyellow;
+    border: 1px solid black;
+}
+
+/* TÍTULO DA LISTA */
+.titulo_lista {
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid black
+}
+
+/* TÍTULO DA TABELA - USUÁRIOS , LOJAS, TIPOS, CLIENTES, PROJETOS */
+.titulo_table {
+    text-align: center;
+    /*font-weight: bold; */
+    position: sticky;
+    /*font-size: 15px;*/
+    top: 0;
+    background-color: lightblue;
+    border: 1px solid black
+
+}
+
+/* ####################################################################################################################*/
+/* ####################################################################################################################*/
+/* LABELS  */
+/* LABEL DAS OPÇÕES DO FORM PRINCIPAL */
+.label_opcoes {
+    width: 400px;
+    display: inline-block;
+    border: 3px;
+    text-align: left;
+    border: 1px solid;
+    padding: 3 px;
+    box-shadow: 3px 3px black;
+    font-weight: bold;
+}
+
+/* LABEL PARA O USUÁRIO ATIVO */
+.label_usuativo {
+    display: inline-block;
+    width: 100px;
+    border: 3px;
+    text-align: left;
+    border: 1px solid;
+    padding: 3 px;
+    box-shadow: 3px 3px black;
+    background-color: lightgrey;
+}
+
+/* LABEL PARA O FORM USUARIOS */
+.label_usuarios {
+    display: inline-block;
+    width: 100px;
+    border: 3px;
+    text-align: left;
+    font-weight: bold;
+}
+.label_dtnasc_usuario {
+    margin-left: 236px;
+    display: inline-block;
+    width: 100px;
+    border: 3px;
+    text-align: left;
+   font-weight: bold;
+}
+
+/* LABEL PARA O FORM LOJAS */
+.label_lojas {
+    display: inline-block;
+    width: 100px;
+    border: 3px;
+    text-align: left;
+   font-weight: bold;
+}
+
+/* LABEL PARA O FORM TIPOS */
+.label_tipos {
+    display: inline-block;
+    width: 100px;
+    border: 3px;
+    text-align: left;
+    font-weight: bold;
+}
+
+/* LABEL PARA O FORM CLIENTES */
+.label_clientes {
+    display: inline-block;
+    width: 100px;
+    border: 3px;
+    text-align: left;
+    font-weight: bold;
+}
+
+/* LABEL PARA O FORM PROJETOS */
+.label_projetos {
+    display: inline-block;
+    width: 100px;
+    border: 3px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.label_tipoclientes {
+    margin-left: 235px;
+    display: inline-block;
+    width: 100px;
+    border: 3px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.label_tit_projetos {
+    display: inline-block;
+    width: 1323px;
+    font-weight: bold;
+    background-color: Azure;
+    border: 1px solid black;
+
+}
+
+.label_tipoprojeto {
+    font-weight: bold;
+}
+
+/* ####################################################################################################################*/
+/* ####################################################################################################################*/
+/* BOTÕES  */
+/* BOTÃO PARA O FORM DE ACESSO */
+.btn_acesso {
+    width: 80px;
+    height: 30px;
+    border: 1px solid;
+    padding: 3 px;
+    box-shadow: 3px 3px;
+}
+
+/* BOTÃO DE MANUTENÇÃO - USUÁRIOS, LOJAS */
+.btn_manutencao {
+    width: 80px;
+    height: 30px;
+    border: 1px solid;
+    padding: 3 px;
+    box-shadow: 3px 3px;
+}
+
+
+/* BOTÃO DE MANUTENÇÃO - USUÁRIOS, LOJAS */
+.btn_manutencao_tarefa {
+    width: 75px;
+    height: 30px;
+    border: 1px solid;
+    padding: 3 px;
+    box-shadow: 3px 3px;
+}
+.btn_manutencao_tarefa_localiza {
+    width: 150px;
+    height: 20px;
+    border: 1px solid;
+    padding: 3 px;
+    box-shadow: 3px 3px;
+    cursor: pointer;
+}
+
+.btn_manutencao_projeto_localiza {
+    width: 75px;
+    height: 30px;
+    border: 1px solid;
+    padding: 3 px;
+    box-shadow: 3px 3px;
+    cursor: pointer;
+}
+
+
+
+
+/* BOTÃO PARA SELECIONAR LINHA NA TABELA USUÁRIOS */
+.btn_sel_table {
+    width: 60px;
+    height: 20px;
+    border: 1px solid;
+    padding: 3 px;
+    box-shadow: 2px 2px;
+}
+
+/* BOTÃO PARA FILTRAR ATIVIDADE DE LOJA NA TABELA LOJAS */
+.btn_fil_table {
+    width: 50px;
+    height: 20px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 1px solid;
+    padding: 3 px;
+    box-shadow: 2px 2px;
+}
+
+/* BOTÃO PARA O FORM PRINCIPAL */
+.btn_principal {
+    width: 150px;
+    height: 30px;
+    border: 50px;
+    border: 1px solid;
+    padding: 3 px;
+    box-shadow: 3px 3px;
+}
+
+/* ####################################################################################################################*/
+/* ####################################################################################################################*/
+/* INPUTS   */
+/* INPUT PARA O FORM DE ACESSO */
+.input_acesso {
+    border: 1px solid;
+    padding: 3 px;
+    box-shadow: 3px 3px;
+}
+
+/* INPUT PARA O USUÁRIO ATIVO */
+.input_usuativo {
+    margin-left: 20px;
+    size: 500px;
+    width: 500px;
+    border: 1px solid;
+    padding: 3 px;
+    box-shadow: 3px 3px;
+    background-color: lightgrey;
+}
+
+/* INPUT PARA O FORM USUARIOS */
+.input_usuarios {
+    margin-left: 20px;
+    size: 500px;
+    width: 500px;
+    border: 1px solid;
+    padding: 3 px;
+    box-shadow: 3px 3px;
+}
+
+/* INPUT PARA O FORM LOJAS */
+.input_lojas {
+    margin-left: 20px;
+    size: 500px;
+    width: 500px;
+    border: 1px solid;
+    padding: 3 px;
+    box-shadow: 3px 3px;
+}
+
+/* INPUT PARA O FORM TIPOS */
+.input_tipos {
+    margin-left: 20px;
+    size: 500px;
+    width: 500px;
+    border: 1px solid;
+    padding: 3 px;
+    box-shadow: 3px 3px;
+}
+
+/* INPUT PARA O FORM CLIENTES */
+.input_clientes {
+    margin-left: 20px;
+    size: 500px;
+    width: 500px;
+    border: 1px solid;
+    padding: 3 px;
+    box-shadow: 3px 3px;
+}
+
+/* INPUT PARA O FORM PROJETOS */
+.input_projeto {
+    margin-left: 20px;
+    size: 500px;
+    width: 500px;
+    border: 1px solid;
+    padding: 3 px;
+    box-shadow: 3px 3px;
+}
+
+/* INPUT PARA O FORM TAREFAS DE PROJETOS */
+.input_projeto_tarefa {
+    margin-left: 0px;
+    size: 500px;
+    width: 300px;
+    border: 1px solid;
+    padding: 3 px;
+    box-shadow: 3px 3px;
+}
+
+
+/* INPUT PARA O UPLOAD FORM PROJETOS */
+.input_upload {
+    margin-left: 20px;
+    size: 500px;
+    width: 505px;
+    border: 1px solid;
+    padding: 3 px;
+    box-shadow: 3px 3px;
+    background-color: lightblue;
+}
+
+.input_estados {
+    margin-left: 5px;
+    width: 220px;
+    border: 1px solid;
+    padding: 3 px;
+    box-shadow: 3px 3px;
+}
+
+.input_pessoa {
+    margin-left: 5px;
+    width: 220px;
+    border: 1px solid;
+    padding: 3 px;
+    box-shadow: 3px 3px;
+}
+
+
+/* ####################################################################################################################*/
+/* ####################################################################################################################*/
+/* SELECT E LISTAS      */
+/* SELECT DO FORM PRINCIPAL */
+.select_opcoes {
+    width: 250px;
+    border: 3px;
+    text-align: left;
+    border: 1px solid;
+    padding: 3 px;
+    box-shadow: 3px 3px black;
+}
+
+/* SELECT DE CLIENTES NO FORM PROJETOS */
+.select_cliente {
+    margin-left: 65px;
+    size: 270px;
+    width: 505px;
+    border: 1px solid;
+    text-align: left;
+    border: 1px solid;
+    padding: 3 px;
+    box-shadow: 3px 3px black;
+}
+
+/* SELECT DE CLIENTES NO FORM PROJETOS */
+.select_cliente_tarefa {
+    margin-left: 45px;
+    size: 500px;
+    width: 300px;
+    border: 1px solid;
+    text-align: left;
+    border: 1px solid;
+    padding: 3 px;
+    box-shadow: 3px 3px black;
+}
+
+/* SELECT DE ESTADOS EM VÁRIOS FORMS */
+.select_estados {
+    margin-left: 20px;
+    size: 270px;
+    width: 270px;
+    border: 1px solid;
+    text-align: left;
+    border: 1px solid;
+    padding: 3 px;
+    box-shadow: 3px 3px black;
+}
+
+.select_atividadecliente {
+    margin-left: 20px;
+    size: 270px;
+    width: 270px;
+    border: 1px solid;
+    text-align: left;
+    border: 1px solid;
+    padding: 3 px;
+    box-shadow: 3px 3px black;
+}
+
+/* SELECT DE TIPO DE PROJETO DO FORM PROJETOS */
+.select_tipoprojeto {
+    margin-left: 20px;
+    size: 270px;
+    width: 270px;
+    border: 1px solid;
+    text-align: left;
+    border: 1px solid;
+    padding: 3 px;
+    box-shadow: 3px 3px black;
+}
+
+/* SELECT DE TIPO DE PROJETO DO FORM TAREFAS DE PROJETOS */
+.select_tipoprojeto_tarefa {
+    margin-left: 4px;
+    size: 500px;
+    width: 300px;
+    border: 1px solid;
+    text-align: left;
+    border: 1px solid;
+    padding: 3 px;
+    box-shadow: 3px 3px black;
+}
+
+/* SELECT DE TIPO DE PESSOA DO FORM USUÁRIOS */
+.select_pessoa {
+    margin-left: 20px;
+    size: 270px;
+    width: 270px;
+    border: 1px solid;
+    text-align: left;
+    border: 1px solid;
+    padding: 3 px;
+    box-shadow: 3px 3px black;
+}
+
+/* SELECT DE TIPO DE CLIENTE DO FORM CLIENTES */
+.select_tipocliente {
+    margin-left: 20px;
+    size: 270px;
+    width: 270px;
+    border: 1px solid;
+    text-align: left;
+    border: 1px solid;
+    padding: 3 px;
+    box-shadow: 3px 3px black;
+}
+
+.select_tipoclienteprojeto {
+    margin-left: 90px;
+    size: 270px;
+    width: 270px;
+    border: 1px solid;
+    text-align: left;
+    border: 1px solid;
+    padding: 3 px;
+    box-shadow: 3px 3px black;
+}
+
+.select_tipoclientetarefa {
+    margin-left: 70px;
+    size: 500px;
+    width: 300px;
+    border: 1px solid;
+    text-align: left;
+    border: 1px solid;
+    padding: 3 px;
+    box-shadow: 3px 3px black;
+}
+
+
+
+/* LISTA DE USUARIOS */
+.lista_usuarios {
+    margin: 0;
+    border: 1px solid black;
+    overflow: hidden;
+}
+
+/* ####################################################################################################################*/
+/* ####################################################################################################################*/
+/* FORMATOS DIVERSOS      */
+.flashes {
+    color: red;
+    list-style-type: square;
+    text-align: left;
+}
+
+
+/* TABELA - USUÁRIOS , LOJAS */
+.formato_table {
+    /*margin: 0;
+    overflow: auto;
+    border: 1px solid black  #ddd*/
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+/* ESTE É O FORMATO PARA UMA DIV CONTAINER QDO COLOCAR DUAS DIVS LADO A LADO */
+/* NÃO ESTÁ SENDO USADA */
+.container_lojas {
+    display: flex;
+    width: 100%;
+    margin: 0 px;
+}
+
+.container_tarefas {
+    display: flex;
+    width: 100%;
+    margin: 0 px;
+}
+
+
+/* FORMATO DAS MENSAGENS NAS TELAS DE MANUTENÇÃO */
+.mensagem_alerta {
+    margin: 22px;
+    color: red;
+    font-size:15px;
+}
+
+.formato_table {
+    width: auto;
+}
+

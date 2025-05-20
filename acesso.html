@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <meta charset="UTF-8">
+    <head>
+        <link rel = "stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
+        <title>SGEA - V 1.0</title>
+        <h1 class="title_format">SGEA-Sistema Gerenciador de Escritório de Arquitetura - V 1.0</h1>
+        <h2 class="subtitle_format">Controle de Acesso - Autenticação do Usuário</h2>
+    </head>
+    <Form  action="/acesso" method="POST">
+        <div class="div_acesso">
+            <br>
+            <input type="text" id="id_usuario" name="id_usuario"  maxlength="5" placeholder="ID do usuário - números" class="input_acesso" autofocus tabindex = 0 onfocus="focusFunction()" onblur="blurFunction()" required pattern="[0-9]+$">
+            <br>
+            <br>
+            <input type="password" id="pw_usuario" name="pw_usuario"  maxlength="50" placeholder="Senha do usuário" class="input_acesso" tabindex = 1 required>
+            <br>
+            <br>
+            <input type="submit" name="bt_autenticar" value="Autenticar" class="btn_acesso" tabindex = 3>
+            <br>
+            <br>
+        </div>
+        {% if mens is not none %}
+        <h6 style="color:red; font-size: 12px;">
+        {{ mens }}</h6>
+        {% else %}
+        <h6>{{ "" }}</h6>
+        {% endif %}
+        {% set mensagens = get_flashed_messages() %}
+        {% if mensagens %}
+            <div id="Atenção!" style="color:red">
+                {% for msg in mensagens %}
+                    {{ msg }}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </Form>
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<body>
+    <meta charset="UTF-8">
+    <head>
+        <link rel = "stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
+        <title>SGEA - V 1.0</title>
+        <h1 class="title_format">SGEA-Sistema Gerenciador de Escritório de Arquitetura - V 1.0</h1>
+        <h2 class="subtitle_mantem_format">CADASTRO DE PROJETOS</h2>
+    </head>
+    <!-- FORMATAÇÃO DOS CAMPOS DE ENTRADA -->
+    <script>
+      function formatar(mascara, documento) {
+        let i = documento.value.length;
+        let saida = '#';
+        let texto = mascara.substring(i);
+        while (texto.substring(0, 1) != saida && texto.length ) {
+          documento.value += texto.substring(0, 1);
+          i++;
+          texto = mascara.substring(i);
+        }
+      }
+    </script>
+    <!-- FUNÇÃO DE ALERTA - SOBRE O BOTÃO EXCEL/TXT -->
+    <script>
+       function mensagem() {
+         alert("Atenção! Serão gerados um arquivo TXT e um arquivo XLSX com todos os projetos ou somente do projeto selecionado na pasta static/arquivos_txt e static/arquivos_xlsx.");
+       }
+    </script>
+    <script>
+        <!-- FUNÇÃO DE ALERTA - AO APERTAR O BOTÃO EXCLUIR - PERGUNTA -->
+        function excluiregistro() {
+            let text;
+            if (confirm("Atenção! Ao excluir um projeto, a pasta com todas as informações será excluída também e não poderá ser recuperada. Confirma a exclusão?") == true) {
+                text = "Sim";
+            } else {
+                text = "Não";
+            }
+            mensagem_excluir.value=text;
+        }
+    </script>
+    <Form action="/mantem_projetos" enctype="multipart/form-data" method="POST">
+        <div>
+            <label class="label_usuativo">Usuário ativo:</label>
+            <input type="text" id="usuario_ativo" name="usuario_ativo" maxlength="68" readonly class="input_usuativo"  value = "{{ cod_usu_ativo + ' - ' + nome_usu_ativo }}" />
+        </div>
+        <!-- DIV DOS CAMPOS DE ENTRADA -->
+        <div id="campos" class="div_campos_projetos">
+            <label class="label_projetos" >Código:</label>
+            <input type="text" id="cod_projeto" name="cod_projeto" maxlength="5" value = "{{ cod_projeto }}" placeholder="ID do projeto - números" class="input_clientes" autofocus tabindex = 0 pattern="[0-9]+$" />
+            <label class="label_projetos" >Nome:</label>
+            <input type="text" id="nome_projeto" name="nome_projeto" maxlength="80" value = "{{ nome_projeto }}" class="input_projeto" tabindex = 1 />]
+            <br>
+            <label class="label_projetos" >Descrição:</label>
+            <input type="text" id="desc_projeto" name="desc_projeto" maxlength="80" value = "{{ desc_projeto }}" class="input_projeto" tabindex = 2 />]
+            <!-- SELECT DE TIPOS DE PROJETOS -->
+            </select>
+            <label class="label_tipoprojeto" >Tipo de Projeto:</label>
+            <select id="tipo_projeto" name="tipo_projeto" class="select_tipoprojeto" autofocus tabindex = 9>
+                {% for value in lista_tipoprojeto %}
+                    {% if default_tipoprojeto=="01" %}
+                        <option value="{{ value[0:2] }}" {% if value[0:2]==default_tipoprojeto %} selected {% endif %}>{{value[0:30]}} </option>
+                    {% else %}
+                        <option value="{{ value[0:2] }}" {% if value[0:2]==id_tipo_projeto %} selected {% endif %}>{{value[0:30]}} </option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            <br>
+            <!-- SELECT DE CLIENTES DE PROJETOS -->
+            </select>
+            <label class="label_tipoprojeto" >Clientes:</label>
+            <select id="cliente_projeto" name="cliente_projeto" class="select_cliente" autofocus tabindex = 9>
+                {% for value in lista_clientes %}
+                    {% if default_clientes=="01" %}
+                        <option value="{{ value[0:2] }}" {% if value[0:2]==default_clientes %} selected {% endif %}>{{value[0:30]}} </option>
+                    {% else %}
+                        <option value="{{ value[0:2] }}" {% if value[0:2]==id_cliente %} selected {% endif %}>{{value[0:30]}} </option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            <!-- SELECT DE TIPOS DE CLIENTES -->
+            </select>
+            <label class="label_tipoprojeto" >Tipo:</label>
+            <select id="tipo_cliente" name="tipo_cliente" class="select_tipoclienteprojeto" autofocus tabindex = 9>
+                {% for value in lista_tipocliente %}
+                    {% if default_tipocliente=="01" %}
+                        <option value="{{ value[0:2] }}" {% if value[0:2]==default_tipocliente %} selected {% endif %}>{{value[0:30]}} </option>
+                    {% else %}
+                        <option value="{{ value[0:2] }}" {% if value[0:2]==id_tipo_cliente %} selected {% endif %}>{{value[0:30]}} </option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            <br>
+            <label class="label_projetos" >Cidade:</label>
+            {% if default_estados=="PR" %}
+                <input type="text" id="cidade_projeto" name="cidade_projeto" maxlength="80" value = "{{ "Curitiba" }}" placeholder="Curitiba" class="input_projeto"  autofocus tabindex = 13 />
+            {% else %}
+                <input type="text" id="cidade_projeto" name="cidade_projeto" maxlength="80" value = "{{ cidade_projeto }}" placeholder="Curitiba" class="input_projeto"  autofocus tabindex = 14 />
+            {% endif %}
+            <label class="label_projetos" >UF:</label>
+            <!-- <select id="estados" name="estados" class="select_estados" value = "{{ uf_cliente }}" autofocus tabindex = 9> -->
+            <select id="estados" name="estados" class="select_estados" autofocus tabindex = 15>
+                {% for value in lista_estados %}
+                    {% if default_estados=="PR" %}
+                        <option value="{{value[0:2]}}" {% if value[0:2]==default_estados %} selected {% endif %}>{{value[0:30]}}</option>
+                    {% else %}
+                        <option value="{{value[0:2]}}" {% if value[0:2]==uf_projeto %} selected {% endif %}>{{value[0:30]}}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            <br>
+            <label class="label_projetos" >Endereço:</label>
+            <input type="text" id="endereco_projeto" name="endereco_projeto" maxlength="80" value = "{{ endereco_projeto }}" class="input_projeto"  autofocus tabindex = 16 />
+            <label class="label_projetos" >CEP:</label>
+            <input type="text" id="cep_projeto" name="cep_projeto" maxlength="10" value = "{{ cep_projeto }}" class="input_projeto" OnKeyPress="formatar('##.###-###',this)" autofocus tabindex = 17 />
+            <br>
+            <label class="label_projetos" >Data Contato:</label>
+            <input type="text" id="data_contato" name="data_contato" maxlength="10" value = "{{ data_contato_projeto }}" class="input_projeto"  OnKeyPress="formatar('##/##/####',this)" autofocus tabindex = 18  />
+            <!-- INPUT OCULTO PARA MENSAGEM DE EXCLUIR -->
+            <input type="text" id="mensagem_excluir" name="mensagem_excluir" hidden value = "{{ mensagem }} "/>
+            <br>
+            <label class="label_projetos" >Data Início:</label>
+            <input type="text" id="data_inicio" name="data_inicio" maxlength="10" value = "{{ data_inicio_projeto }}" class="input_projeto" OnKeyPress="formatar('##/##/####',this)" autofocus tabindex = 19  />
+            <label class="label_projetos" >Data Fim:</label>
+            <input type="text" id="data_fim" name="data_fim" maxlength="10" value = "{{ data_fim_projeto }}" class="input_projeto" OnKeyPress="formatar('##/##/####',this)" autofocus tabindex = 20  />
+            <br>
+            <label class="label_projetos" >Responsável:</label>
+            <input type="text" id="usuario_projeto" name="usuario_projeto" maxlength="80" value = "{{ usuario_projeto }}" class="input_projeto"  autofocus tabindex = 21  />
+            <label class="label_projetos" >Prazo:</label>
+            <input type="text" id="prazo_projeto" name="prazo_projeto" maxlength="40" value = "{{ prazo_projeto }}" class="input_projeto"  autofocus tabindex = 22  />
+            <br>
+            <label class="label_tit_projetos" >Estudo Preliminar:</label>
+            <br>
+            <label class="label_projetos" >Início:</label>
+            <input type="text" id="est_preliminar_ini" name="est_preliminar_ini" maxlength="10" value = "{{ estudo_preliminar_inicio }}" class="input_projeto" OnKeyPress="formatar('##/##/####',this)" autofocus tabindex = 10  />
+            <label class="label_projetos" >Fim:</label>
+            <input type="text" id="est_preliminar_fim" name="est_preliminar_fim" maxlength="10" value = "{{ estudo_preliminar_fim }}" class="input_projeto" OnKeyPress="formatar('##/##/####',this)" autofocus tabindex = 10  />
+            <br>
+            <label class="label_tit_projetos" >Anteprojeto:</label>
+            <br>
+            <label class="label_projetos" >Início:</label>
+            <input type="text" id="anteprojeto_ini" name="anteprojeto_ini" maxlength="10" value = "{{ anteprojeto_inicio }}" class="input_projeto" OnKeyPress="formatar('##/##/####',this)" autofocus tabindex = 10  />
+            <label class="label_projetos" >Fim:</label>
+            <input type="text" id="anteprojeto_fim" name="anteprojeto_fim" maxlength="10" value = "{{ anteprojeto_fim }}" class="input_projeto" OnKeyPress="formatar('##/##/####',this)" autofocus tabindex = 10  />
+            <br>
+            <label class="label_tit_projetos" >Projeto Legal:</label>
+            <br>
+            <label class="label_projetos" >Início:</label>
+            <input type="text" id="projetolegal_ini" name="projetolegal_ini" maxlength="10" value = "{{ projeto_legal_inicio }}" class="input_projeto" OnKeyPress="formatar('##/##/####',this)" autofocus tabindex = 10  />
+            <label class="label_projetos" >Fim:</label>
+            <input type="text" id="projetolegal_fim" name="projetolegal_fim" maxlength="10" value = "{{ projeto_legal_fim }}" class="input_projeto" OnKeyPress="formatar('##/##/####',this)" autofocus tabindex = 10  />
+            <br>
+            <label class="label_tit_projetos" >Projeto Executivo:</label>
+            <br>
+            <label class="label_projetos" >Início:</label>
+            <input type="text" id="projetoexecutivo_ini" name="projetoexecutivo_ini" maxlength="10" value = "{{ projeto_executivo_inicio }}" class="input_projeto" OnKeyPress="formatar('##/##/####',this)" autofocus tabindex = 10  />
+            <label class="label_projetos" >Fim:</label>
+            <input type="text" id="projetoexecutivo_fim" name="projetoexecutivo_fim" maxlength="10" value = "{{ projeto_executivo_fim }}" class="input_projeto" OnKeyPress="formatar('##/##/####',this)" autofocus tabindex = 10  />
+            <br>
+            <label class="label_tit_projetos" >Viabilidade:</label>
+            <br>
+            <label class="label_projetos" >Andamento:</label>
+            <input type="text" id="viabilidade_andamento" name="viabilidade_andamento" maxlength="50" value = "{{ viabilidade_andamento }}" class="input_projeto"  autofocus tabindex = 10  />
+            <label class="label_projetos" >Prazo:</label>
+            <input type="text" id="viabilidade_prazo" name="viabilidade_prazo" maxlength="50" value = "{{ viabilidade_prazo }}" class="input_projeto"  autofocus tabindex = 10  />
+            <br>
+            <label class="label_projetos" >Arquivos:</label>
+            <input type="file" id="upload" name="upload" class="input_upload"  multiple autofocus tabindex = 10  />
+            <br>
+            <br>
+            <input type="submit" name="bt_busca_projeto" value="Limpar" class="btn_manutencao" tabindex = 19>
+            <input type="submit" name="bt_busca_projeto" value="Localizar" class="btn_manutencao" tabindex = 20>
+            <input type="submit" name="bt_busca_projeto" value="Incluir" class="btn_manutencao" tabindex = 21>
+            <input type="submit" name="bt_busca_projeto" value="Alterar" class="btn_manutencao" tabindex = 22>
+            <input type="submit" name="bt_busca_projeto" value="Excluir" onclick="excluiregistro()" class="btn_manutencao" tabindex = 23>
+            <input type="submit" name="bt_busca_projeto" value="Excel/TXT" class="btn_manutencao" tabindex = 24>
+            <input type="submit" name="bt_busca_projeto" value="Upload" class="btn_manutencao" tabindex = 25>
+            <input type="submit" name="bt_busca_projeto" value="Download" class="btn_manutencao" tabindex = 26>
+            <input type="submit" name="bt_busca_projeto" value="Visualizar" class="btn_manutencao" tabindex = 27>
+            <input type="submit" name="bt_busca_projeto" value="Sair" class="btn_manutencao" tabindex = 28>
+            {% set mensagens = get_flashed_messages() %}
+            {% if mensagens %}
+                {% for msg in mensagens %}
+                    <p class="mensagem_alerta">{{ msg }}</p>
+                {% endfor %}
+            {% else %}
+                {% if mens is not none %}
+                    <p>{{ mens }}</p>
+                {% else %}
+                    <p>{{ "" }}</p>
+                {% endif %}
+            {% endif %}
+        </div>
+    </Form>
+    <!-- DIV DA TABELA DOS DADOS -->
+    <div>
+        <p class="titulo_table" >RELAÇÃO DE PROJETOS CADASTRADOS</p>
+    <div/>
+    <div class="div_tabela">
+        <table border = 1 class="formato_table">
+             <thead class="titulo_table">
+                <td>Selecione</td>
+                <td>ID</td>
+                <td>NOME</td>
+                <td>DESCRIÇÃO</td>
+                <td>TIPO</td>
+                <td>ID CLIENTE</td>
+                <td>TIPO CLIENTE</td>
+                <td>NOME CLIENTE</td>
+                <td>CIDADE</td>
+                <td>UF</td>
+                <td>ENDEREÇO</td>
+                <td>CEP</td>
+                <td>DATA CONTATO</td>
+                <td>DATA INÍCIO</td>
+                <td>DATA FIM</td>
+                <td>RESPONSÁVEL</td>
+                <td>PRAZO</td>
+                <td>EST.PRELIMINAR INÍCIO</td>
+                <td>EST.PRELIMINAR FIM</td>
+                <td>ANTEPROJETO INÍCIO</td>
+                <td>ANTEPROJETO FIM</td>
+                <td>PROJETO LEGAL INÍCIO</td>
+                <td>PROJETO LEGAL FIM</td>
+                <td>PROJETO EXEC. INÍCIO</td>
+                <td>PROJETO EXEC. FIM</td>
+                <td>VIABILIDADE-ANDAMENTO</td>
+                <td>VIABILIDADE -PRAZO</td>
+             </thead>
+             {% for row in dados_projetos %}
+                <tr >
+                    <!-- COLOCAMOS ESTA LINHA ABAIXO PARA SELECIONAR UM REGISTRO AO PRESSIONAR O BOTÃO -->
+                   <td>
+                   <a href="{{ url_for('edita_projeto', record_id=row['id_projeto'], cod_usu_ativo = cod_usu_ativo, nome_usu_ativo = nome_usu_ativo) }}"><input type="submit" name="editar_projeto" value="Ok" class="btn_sel_table"/></a>
+                   </td>
+                   <td>{{ row["id_projeto"] }}</td>
+                   <td>{{ row["nome_projeto"] }}</td>
+                   <td >{{ row["desc_projeto"] }}</td>
+                   <td>{{ row["id_tipo_projeto"] }}</td>
+                   <td>{{ row["id_cliente"] }}</td>
+                   <td>{{ row["id_tipo_cliente"] }}</td>
+                   <td>{{ row["nome_cliente"] }}</td>
+                   <td>{{ row["cidade_projeto"] }}</td>
+                   <td>{{ row["uf_projeto"] }}</td>
+                   <td>{{ row["endereco_projeto"] }}</td>
+                   <td>{{ row["cep_projeto"] }}</td>
+                   <td>{{ row["data_contato_projeto"] }}</td>
+                   <td>{{ row["data_inicio_projeto"] }}</td>
+                   <td>{{ row["data_fim_projeto"] }}</td>
+                   <td>{{ row["usuario_projeto"] }}</td>
+                   <td>{{ row["prazo_projeto"] }}</td>
+                   <td>{{ row["estudo_preliminar_inicio"] }}</td>
+                   <td>{{ row["estudo_preliminar_fim"] }}</td>
+                   <td>{{ row["anteprojeto_inicio"] }}</td>
+                   <td>{{ row["anteprojeto_fim"] }}</td>
+                   <td>{{ row["projeto_legal_inicio"] }}</td>
+                   <td>{{ row["projeto_legal_fim"] }}</td>
+                   <td>{{ row["projeto_executivo_inicio"] }}</td>
+                   <td>{{ row["projeto_executivo_fim"] }}</td>
+                   <td>{{ row["viabilidade_andamento"] }}</td>
+                   <td>{{ row["viabilidade_prazo"] }}</td>
+                </tr>
+             {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

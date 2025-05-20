@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<!--suppress ALL, XmlDuplicatedId -->
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<body>
+    <meta charset="UTF-8">
+    <head>
+        <link rel = "stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
+        <title>SGEA - V 1.0</title>
+        <h1 class="title_format">SGEA-Sistema Gerenciador de Escritório de Arquitetura - V 1.0</h1>
+        <h2 class="subtitle_mantem_format">CADASTRO GERAL</h2>
+    </head>
+    <!-- FORMATAÇÃO DOS CAMPOS DE ENTRADA -->
+    <script>
+      function formatar(mascara, documento) {
+        let i = documento.value.length;
+        let saida = '#';
+        let texto = mascara.substring(i);
+        while (texto.substring(0, 1) != saida && texto.length ) {
+          documento.value += texto.substring(0, 1);
+          i++;
+          texto = mascara.substring(i);
+        }
+      }
+    </script>
+    <!-- FUNÇÃO DE ALERTA - SOBRE O BOTÃO EXCEL/TXT -->
+    <script>
+       function mensagem() {
+         alert("Atenção! Serão gerados um arquivo TXT e um arquivo XLSX com todas os tipos ou somente o tipo selecionado na pasta static/arquivos_txt e static/arquivos_xlsx.");
+       }
+    </script>
+    <script>
+        <!-- FUNÇÃO DE ALERTA - AO APERTAR O BOTÃO EXCLUIR - PERGUNTA -->
+        function excluiregistro() {
+            let text;
+            if (confirm("Atenção! O registro será excluído! Confirma a exclusão?") == true) {
+                text = "Sim";
+            } else {
+                text = "Não";
+            }
+            mensagem_excluir.value=text;
+        }
+    </script>
+    <Form action="/mantem_tipos" method="POST">
+        <div>
+            <label class="label_usuativo">Usuário ativo:</label>
+            <input type="text" id="usuario_ativo" name="usuario_ativo" maxlength="68" readonly class="input_usuativo"  value = "{{ cod_usu_ativo + ' - ' + nome_usu_ativo }}" />
+        </div>
+        <br>
+        <div>
+            <label class="label_tipos">Cadastro de: </label>
+            <input type="text" id="titulo_cadastro" name="titulo_cadastro" maxlength="30" readonly class="input_tipos"  value = "{{ cadastrode }}" />
+        </div>
+        <br>
+        <!-- DIV DOS CAMPOS DE ENTRADA -->
+        <div id="campos" class="div_campos_tipos">
+            {%if cadastrode=="Atividade"%}
+                <label class="label_tipos" >Código:</label>
+                <input type="text" id="cod_tipo" name="cod_tipo" maxlength="5" value = "{{ id_atividade }}" placeholder="ID - números" class="input_tipos" autofocus tabindex = 0 pattern="[0-9]+$" />
+                <br>
+                <label class="label_tipos" >Tipo:</label>
+                <input type="text" id="nome_tipo" name="nome_tipo" maxlength="80" value = "{{ nome_atividade }}" class="input_tipos" tabindex = 1 />]
+            {%endif%}
+            {%if cadastrode=="Tipo de Cliente"%}
+                <label class="label_tipos" >Código:</label>
+                <input type="text" id="cod_tipo" name="cod_tipo" maxlength="5" value = "{{ id_tipo_cliente }}" placeholder="ID - números" class="input_tipos" autofocus tabindex = 2 pattern="[0-9]+$" />
+                <br>
+                <label class="label_tipos" >Tipo:</label>
+                <input type="text" id="nome_tipo" name="nome_tipo" maxlength="80" value = "{{ tipo_cliente }}" class="input_tipos" tabindex = 3 />]
+            {%endif%}
+            {%if cadastrode=="Tipo de Projeto"%}
+                <label class="label_tipos" >Código:</label>
+                <input type="text" id="cod_tipo" name="cod_tipo" maxlength="5" value = "{{ id_tipo_projeto }}" placeholder="ID - números" class="input_tipos" autofocus tabindex = 4 pattern="[0-9]+$" />
+                <br>
+                <label class="label_tipos" >Tipo:</label>
+                <input type="text" id="nome_tipo" name="nome_tipo" maxlength="80" value = "{{ tipo_projeto }}" class="input_tipos" tabindex = 5 />]
+            {%endif%}
+            {%if cadastrode=="Tipo de Despesa"%}
+                <label class="label_tipos" >Código:</label>
+                <input type="text" id="cod_tipo" name="cod_tipo" maxlength="5" value = "{{ id_tipo_despesa }}" placeholder="ID - números" class="input_tipos" autofocus tabindex = 6 pattern="[0-9]+$" />
+                <br>
+                <label class="label_tipos" >Tipo:</label>
+                <input type="text" id="nome_tipo" name="nome_tipo" maxlength="80" value = "{{ tipo_despesa }}" class="input_tipos" tabindex = 7 />]
+            {%endif%}
+            {%if cadastrode=="Tipo de Situacao"%}
+                <label class="label_tipos" >Código:</label>
+                <input type="text" id="cod_tipo" name="cod_tipo" maxlength="5" value = "{{ id_tipo_situacao }}" placeholder="ID - números" class="input_tipos" autofocus tabindex = 8 pattern="[0-9]+$" />
+                <br>
+                <label class="label_tipos" >Tipo:</label>
+                <input type="text" id="nome_tipo" name="nome_tipo" maxlength="80" value = "{{ tipo_situacao }}" class="input_tipos" tabindex = 9 />]
+            {%endif%}
+            <br>
+            <!-- INPUT OCULTO PARA MENSAGEM DE EXCLUIR -->
+            <input type="text" id="mensagem_excluir" name="mensagem_excluir" hidden value = "{{ mensagem }} "/>
+            <br>
+            <br>
+            <input type="submit" name="bt_busca_tipo" value="Limpar" class="btn_manutencao" tabindex = 10>
+            <input type="submit" name="bt_busca_tipo" value="Localizar" class="btn_manutencao" tabindex = 11>
+            <input type="submit" name="bt_busca_tipo" value="Incluir" class="btn_manutencao" tabindex = 12>
+            <input type="submit" name="bt_busca_tipo" value="Alterar" class="btn_manutencao" tabindex = 13>
+            <input type="submit" name="bt_busca_tipo" value="Excluir" onclick="excluiregistro()" class="btn_manutencao" tabindex = 14>
+            <input type="submit" name="bt_busca_tipo" value="Excel/TXT" class="btn_manutencao" tabindex = 15>
+            <input type="submit" name="bt_busca_tipo" value="Sair" class="btn_manutencao" tabindex = 16>
+            {% set mensagens = get_flashed_messages() %}
+            {% if mensagens %}
+                {% for msg in mensagens %}
+                    <p class="mensagem_alerta">{{ msg }}</p>
+                {% endfor %}
+            {% else %}
+                {% if mens is not none %}
+                    <p>{{ mens }}</p>
+                {% else %}
+                    <p>{{ "" }}</p>
+                {% endif %}
+            {% endif %}
+        </div>
+    </Form>
+    <!-- DIV DA TABELA DOS DADOS -->
+    <div>
+        <p class="titulo_table" >CADASTRO DE ATIVIDADES E TIPOS</p>
+    </div>
+    <div class="div_tabela">
+        <table border = 1 class="formato_table">
+             <thead class="titulo_table">
+                <td>Selecione</td>
+                <td>ID</td>
+                <td>NOME</td>
+             </thead>
+             {% for row in dados_tipos %}
+                <tr>
+                    <!-- COLOCAMOS ESTA LINHA ABAIXO PARA SELECIONAR UM REGISTRO AO PRESSIONAR O BOTÃO -->
+                   <td>
+                   {%if cadastrode=="Atividade"%}
+                        <a href="{{ url_for('edita_tipo', record_id=row['id_atividade'], cod_usu_ativo=cod_usu_ativo, nome_usu_ativo=nome_usu_ativo, cadastrode=cadastrode) }}"><input type="submit" name="editar_tipo" value="Ok" class="btn_sel_table"/></a>
+                        <td>{{ row["id_atividade"] }}</td>
+                        <td>{{ row["nome_atividade"] }}</td>
+                    {%endif%}
+                   {%if cadastrode=="Tipo de Cliente"%}
+                        <a href="{{ url_for('edita_tipo', record_id=row['id_tipo_cliente'], cod_usu_ativo = cod_usu_ativo, nome_usu_ativo = nome_usu_ativo, cadastrode=cadastrode) }}"><input type="submit" name="editar_tipo" value="Ok" class="btn_sel_table"/></a>
+                        <td>{{ row["id_tipo_cliente"] }}</td>
+                        <td>{{ row["tipo_cliente"] }}</td>
+                   {%endif%}
+                   {%if cadastrode=="Tipo de Projeto"%}
+                        <a href="{{ url_for('edita_tipo', record_id=row['id_tipo_projeto'], cod_usu_ativo = cod_usu_ativo, nome_usu_ativo = nome_usu_ativo, cadastrode=cadastrode) }}"><input type="submit" name="editar_tipo" value="Ok" class="btn_sel_table"/></a>
+                        <td>{{ row["id_tipo_projeto"] }}</td>
+                        <td>{{ row["tipo_projeto"] }}</td>
+                    {%endif%}
+                    {%if cadastrode=="Tipo de Despesa"%}
+                        <a href="{{ url_for('edita_tipo', record_id=row['id_tipo_despesa'], cod_usu_ativo = cod_usu_ativo, nome_usu_ativo = nome_usu_ativo, cadastrode=cadastrode) }}"><input type="submit" name="editar_tipo" value="Ok" class="btn_sel_table"/></a>
+                        <td>{{ row["id_tipo_despesa"] }}</td>
+                        <td>{{ row["tipo_despesa"] }}</td>
+                    {%endif%}
+                    {%if cadastrode=="Tipo de Situacao"%}
+                        <a href="{{ url_for('edita_tipo', record_id=row['id_tipo_situacao'], cod_usu_ativo = cod_usu_ativo, nome_usu_ativo = nome_usu_ativo, cadastrode=cadastrode) }}"><input type="submit" name="editar_tipo" value="Ok" class="btn_sel_table"/></a>
+                        <td>{{ row["id_tipo_situacao"] }}</td>
+                        <td>{{ row["tipo_situacao"] }}</td>
+                    {%endif%}
+                   </td>
+                </tr>
+             {% endfor %}
+        </table>
+    </div>
+</body>
+</html>
