@@ -645,6 +645,17 @@ def menu_principal():
                                lista_tipocliente=lista_tipocliente, default_tipocliente=default_tipocliente, lista_clientes=lista_clientes,
                                default_clientes=default_clientes, lista_estados=lista_estados, default_estados=default_estados)
 
+    elif opcao_menu == ("acompanhamento_projeto"):
+        mensagem = "Em Construção"
+        flash('Em construção. Verifique!', category="warning")
+        return render_template('principal.html', mens=mensagem, cod_usu_ativo=cod_usu_ativo, nome_usu_ativo=nome_usu_ativo)
+
+    elif opcao_menu == ("prestador"):
+        mensagem = "Em Construção"
+        flash('Em construção. Verifique!', category="warning")
+        return render_template('principal.html', mens=mensagem, cod_usu_ativo=cod_usu_ativo, nome_usu_ativo=nome_usu_ativo)
+
+
     elif opcao_menu == ("sair"):
         sys.exit(0)
 
@@ -3859,4 +3870,4 @@ def edita_projetotarefa(record_id, cod_usu_ativo, nome_usu_ativo):
 # INCIAR A APLICAÇÃO FLASK - Este if vai executar o código de programa abaixo
 # Se não tiver este if, não vai rodar no servidor.
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
